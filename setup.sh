@@ -13,6 +13,7 @@ brew tap homebrew/cask-versions
 brew cask install iterm2
 brew cask install visual-studio-code
 brew cask install docker
+brew cask install fork
 
 brew cask install google-chrome
 brew cask install firefox

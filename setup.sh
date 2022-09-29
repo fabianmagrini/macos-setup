@@ -1,41 +1,61 @@
-#!/bin/bash
+#!/bin/sh
+#
+# This script should be run via curl:
+#   sh -c "$(curl -fsSL https://raw.githubusercontent.com/fabianmagrini/macos-setup/master/setup.sh)"
+# or via wget:
+#   sh -c "$(wget -qO- https://raw.githubusercontent.com/fabianmagrini/macos-setup/master/setup.sh)"
+# or via fetch:
+#   sh -c "$(fetch -o - https://raw.githubusercontent.com/fabianmagrini/macos-setup/master/setup.sh)"
+#
+# As an alternative, you can first download the script and run it afterwards:
+#   wget https://raw.githubusercontent.com/fabianmagrini/macos-setup/master/setup.sh
+#   sh setup.sh
+#
 
 # xcode command line utilities
 xcode-select --install
 
 # Homebrew
-/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
 brew install git
+brew install jq
+brew install tree
+brew install wget
 
 brew tap homebrew/cask-versions
 
-brew cask install iterm2
-brew cask install visual-studio-code
-brew cask install docker
-brew cask install fork
+brew install --cask iterm2
+brew install --cask visual-studio-code
+brew install --cask docker
+brew install --cask postman
 
-brew cask install google-chrome
-brew cask install firefox
-brew cask install firefox-developer-edition
+brew install --cask google-chrome
+brew install --cask firefox
+brew install --cask firefox-developer-edition
 
-brew cask install atom
-brew cask install calibre
-brew cask install dropbox
-brew cask install skype
-brew cask install transmission
-brew cask install vlc
-
+brew install --cask 1password
+brew install --cask calibre
+brew install --cask dropbox
+brew install --cask idrive
+brew install --cask vlc
 
 # install from the app store
 brew install mas
 
 # xcode
 mas install 497799835
+sudo xcodebuild -license accept
+
+# dotnet
+brew install --cask dotnet
 
 # node using nvm
-curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.0/install.sh | bash
-source ~/.bash_profile
+brew install nvm
+mkdir ~/.nvm
+echo 'export NVM_DIR=~/.nvm' >> ~/.zshrc
+echo '[ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm' >> ~/.zshrc
+echo '[ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion' >> ~/.zshrc
 nvm install node
 node -v
 npm list
@@ -43,9 +63,9 @@ npm list
 # golang
 brew install golang
 go version
-echo 'export GOPATH="$HOME/go"' >> ~/.bash_profile
-echo 'export PATH="$GOPATH/bin:$PATH"' >> ~/.bash_profile
-source ~/.bash_profile
+echo 'export GOPATH="$HOME/go"' >> ~/.zshrc
+echo 'export PATH="$GOPATH/bin:$PATH"' >> ~/.zshrc
+source ~/.zshrc
 mkdir ~/go
 
 # python

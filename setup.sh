@@ -12,6 +12,14 @@
 #   sh setup.sh
 #
 
+# set default values
+hostname="localhost"
+install_dotnet="N"
+install_azurecli="N"
+
+# override from config
+source setup.conf
+
 # xcode command line utilities
 xcode-select --install
 
@@ -48,7 +56,10 @@ mas install 497799835
 sudo xcodebuild -license accept
 
 # dotnet
-brew install --cask dotnet
+if [[ "$install_dotnet" == "Y" ]]
+then 
+    brew install --cask dotnet
+fi
 
 # node using nvm
 brew install nvm
@@ -72,6 +83,8 @@ mkdir ~/go
 brew install python3 pipenv
 
 # azure cli
-brew update && brew install azure-cli
-
+if [[ "$install_azurecli" == "Y" ]]
+then 
+    brew update && brew install azure-cli
+fi
 

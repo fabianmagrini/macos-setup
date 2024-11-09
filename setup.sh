@@ -17,14 +17,21 @@ hostname="localhost"
 install_dotnet="N"
 install_azurecli="N"
 
-# override from config
-source setup.conf
+# override from config file if it exists
+if [ -f setup.conf ]
+then
+    source setup.conf
+fi
 
 # xcode command line utilities
 xcode-select --install
 
 # Homebrew
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+echo >> ~/.zprofile
+echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> ~/.zprofile
+eval "$(/opt/homebrew/bin/brew shellenv)"
 
 brew install git
 brew install jq
@@ -67,6 +74,7 @@ mkdir ~/.nvm
 echo 'export NVM_DIR="$HOME/.nvm"' >> ~/.zshrc
 echo '[ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm' >> ~/.zshrc
 echo '[ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion' >> ~/.zshrc
+source ~/.zshrc
 nvm install node
 node -v
 npm list

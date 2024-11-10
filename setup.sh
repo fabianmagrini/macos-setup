@@ -47,7 +47,7 @@ brew install --cask postman
 
 brew install --cask google-chrome
 brew install --cask firefox
-brew install --cask firefox-developer-edition
+brew install --cask firefox@developer-edition
 
 brew install --cask 1password
 brew install --cask calibre
